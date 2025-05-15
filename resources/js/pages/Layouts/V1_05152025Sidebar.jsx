@@ -10,6 +10,7 @@ const logo = `${baseUrl}/admin/public/assets/backend/dist/img/logo.jpg`;
 const user = `${baseUrl}/admin/public/assets/backend/dist/img/user_logo.png`;
 
 function SideBar() {
+    // const [categoriesExpanded, setCategoriesExpanded] = useState(false);
     const [blogExpanded, setBlogExpanded] = useState(false);
     const [researchExpanded, setResearchExpanded] = useState(false);
     const [beyondExpanded, setBeyondExpanded] = useState(false);
@@ -85,7 +86,7 @@ function SideBar() {
                                             transition: 'transform 0.2s ease',
                                         }}
                                     ></i>
-                                    <span className="badge badge-info right">1</span>
+                                    <span className="badge badge-info right">6</span>
                                 </p>
                             </a>
                             <ul className="nav nav-treeview" style={{
@@ -98,11 +99,44 @@ function SideBar() {
                                         <p>Inventory</p>
                                     </Link>
                                 </li>
+                                <li className="nav-item">
+                                    <a href="/boxed" className="nav-link">
+                                        <i className="fas fa-archive nav-icon"></i> {/* Box-specific icon */}
+                                        <p>Boxed</p>
+                                    </a>
+                                </li>
+                                {/* Additional nested example */}
+                                <li className="nav-item">
+                                    <a href="#" className="nav-link" onClick={(e) => { e.preventDefault(); setCategoriesExpanded(!categoriesExpanded); }}>
+                                        <i className="fas fa-tags nav-icon"></i>
+                                        <p>
+                                            Categories
+                                            <i className={`fas fa-angle-left right ${categoriesExpanded ? 'rotate-90' : ''}`}></i>
+                                        </p>
+                                    </a>
+                                    <ul className="nav nav-treeview" style={{
+                                        display: categoriesExpanded ? 'block' : 'none',
+                                        paddingLeft: '30px' /* Deeper nesting gets more padding */
+                                    }}>
+                                        <li className="nav-item">
+                                            <a href="/categories/electronics" className="nav-link">
+                                                <i className="fas fa-microchip nav-icon"></i>
+                                                <p>Electronics</p>
+                                            </a>
+                                        </li>
+                                        <li className="nav-item">
+                                            <a href="/categories/clothing" className="nav-link">
+                                                <i className="fas fa-tshirt nav-icon"></i>
+                                                <p>Clothing</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
                             </ul>
                         </li>
 
                         <li className="nav-header">Frontend</li>
-                        {/* <li className="nav-item">
+                        <li className="nav-item">
                             <Link to="/blogs" className="nav-link">
                                 <i className="nav-icon far fa-calendar-alt"></i>
                                 <p>
@@ -110,20 +144,14 @@ function SideBar() {
                                     <span className="badge badge-info right">2</span>
                                 </p>
                             </Link>
-                        </li> */}
+                        </li>
 
                         <li className="nav-item">
                             <a href="#" className="nav-link" onClick={() => setBlogExpanded(!blogExpanded)}>
                                 <i className="nav-icon fas fa-blog"></i>
                                 <p>
                                     Blog
-                                    <i className="fas fa-angle-left right"
-                                        style={{
-                                            transform: blogExpanded ? 'rotate(90deg)' : 'none',
-                                            transition: 'transform 0.2s ease',
-                                        }}
-                                    ></i>
-                                    <span className="badge badge-info right">2</span>
+                                    <i className={`fas fa-angle-left right ${blogExpanded ? 'rotate-90' : ''}`}></i>
                                 </p>
                             </a>
 
@@ -149,34 +177,28 @@ function SideBar() {
                                         paddingLeft: '25px'
                                     }}>
                                         <li className="nav-item">
-                                            <Link to="/blogs/auto-news" className="nav-link">
+                                            <a href="/blog/research/auto-news" className="nav-link">
                                                 <i className="fas fa-newspaper nav-icon"></i>
                                                 <p>Auto News</p>
-                                            </Link>
+                                            </a>
                                         </li>
                                         <li className="nav-item">
-                                            <Link to="/blogs/reviews" className="nav-link">
-                                                <i className="fas fa-star nav-icon"></i>
-                                                <p>Reviews</p>
-                                            </Link>
-                                        </li>
-                                        <li className="nav-item">
-                                            <Link to="/blogs/tools-and-advice" className="nav-link">
+                                            <a href="/blog/research/tools" className="nav-link">
                                                 <i className="fas fa-tools nav-icon"></i>
                                                 <p>Tools & Advice</p>
-                                            </Link>
+                                            </a>
                                         </li>
                                         <li className="nav-item">
-                                            <Link to="/blogs/car-buying-advice" className="nav-link">
+                                            <a href="/blog/research/buying" className="nav-link">
                                                 <i className="fas fa-car nav-icon"></i>
                                                 <p>Car Buying Advice</p>
-                                            </Link>
+                                            </a>
                                         </li>
                                         <li className="nav-item">
-                                            <Link to="/blogs/car-tips" className="nav-link">
+                                            <a href="/blog/research/tips" className="nav-link">
                                                 <i className="fas fa-lightbulb nav-icon"></i>
                                                 <p>Car Tips</p>
-                                            </Link>
+                                            </a>
                                         </li>
                                     </ul>
                                 </li>
@@ -200,36 +222,53 @@ function SideBar() {
 
                                         {/* Beyond Car > News Innovation */}
                                         <li className="nav-item">
-                                            <Link to="/blogs/news" className="nav-link" >
+                                            <a href="#" className="nav-link" onClick={(e) => {
+                                                e.preventDefault();
+                                                setNewsInnovationExpanded(!newsInnovationExpanded);
+                                            }}>
                                                 <i className="fas fa-bolt nav-icon"></i>
-                                                <p>News</p>
-                                            </Link>
+                                                <p>
+                                                    News Innovation
+                                                    <i className={`fas fa-angle-left right ${newsInnovationExpanded ? 'rotate-90' : ''}`}></i>
+                                                </p>
+                                            </a>
+                                            <ul className="nav nav-treeview" style={{
+                                                display: newsInnovationExpanded ? 'block' : 'none',
+                                                paddingLeft: '35px'
+                                            }}>
+                                                <li className="nav-item">
+                                                    <a href="/blog/beyond/news" className="nav-link">
+                                                        <i className="far fa-newspaper nav-icon"></i>
+                                                        <p>News</p>
+                                                    </a>
+                                                </li>
+                                                <li className="nav-item">
+                                                    <a href="/blog/beyond/innovation" className="nav-link">
+                                                        <i className="fas fa-cogs nav-icon"></i>
+                                                        <p>Innovation</p>
+                                                    </a>
+                                                </li>
+                                                <li className="nav-item">
+                                                    <a href="/blog/beyond/opinion" className="nav-link">
+                                                        <i className="fas fa-comment-alt nav-icon"></i>
+                                                        <p>Opinion</p>
+                                                    </a>
+                                                </li>
+                                                <li className="nav-item">
+                                                    <a href="/blog/beyond/financial" className="nav-link">
+                                                        <i className="fas fa-chart-line nav-icon"></i>
+                                                        <p>Financial</p>
+                                                    </a>
+                                                </li>
+                                            </ul>
                                         </li>
 
                                         {/* Beyond Car > Other Categories */}
-                                        {/* <li className="nav-item">
+                                        <li className="nav-item">
                                             <a href="/blog/beyond/technology" className="nav-link">
                                                 <i className="fas fa-microchip nav-icon"></i>
                                                 <p>Technology</p>
                                             </a>
-                                        </li> */}
-                                        <li className="nav-item">
-                                            <Link to="/blogs/innovation" className="nav-link">
-                                                <i className="fas fa-cogs nav-icon"></i>
-                                                <p>Innovation</p>
-                                            </Link>
-                                        </li>
-                                        <li className="nav-item">
-                                            <Link to="/blogs/opinion" className="nav-link">
-                                                <i className="fas fa-comment-alt nav-icon"></i>
-                                                <p>Opinion</p>
-                                            </Link>
-                                        </li>
-                                        <li className="nav-item">
-                                            <Link to="/blogs/financial" className="nav-link">
-                                                <i className="fas fa-chart-line nav-icon"></i>
-                                                <p>Financial</p>
-                                            </Link>
                                         </li>
                                     </ul>
                                 </li>

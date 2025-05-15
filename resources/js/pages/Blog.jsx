@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { format } from 'date-fns';
-import { API_BASE_URL } from './Layouts/Configs/Configs';
 
-export default function InventoryTable() {
+export default function Blog() {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [pagination, setPagination] = useState({
@@ -33,7 +32,7 @@ export default function InventoryTable() {
                 return;
             }
 
-            const url = new URL(`${API_BASE_URL}/api/inventory`);
+            const url = new URL('http://localhost:8000/api/blogs/2');
             Object.keys(params).forEach(key =>
                 params[key] && url.searchParams.append(key, params[key])
             );
@@ -107,18 +106,13 @@ export default function InventoryTable() {
 
     const columns = [
         { key: 'id', label: 'ID' },
-        { key: 'deal_id', label: 'Deal ID' },
-        { key: 'stock', label: 'Stock' },
-        { key: 'year', label: 'Year' },
-        { key: 'make', label: 'Make' },
-        { key: 'model', label: 'Model' },
-        { key: 'vin', label: 'VIN' },
-        { key: 'active_till', label: 'Active Till' },
-        { key: 'featured_till', label: 'Featured Till' },
-        { key: 'payment_date', label: 'Payment Date' },
-        { key: 'package', label: 'Package' },
-        { key: 'image_count', label: 'Images' },
-        { key: 'inventory_status', label: 'Status' },
+        { key: 'img', label: 'Image' },
+        // { key: 'user_id', label: 'Author' },
+        // { key: 'category_id', label: 'Category' },
+        // { key: 'sub_category_id', label: 'Sub Category' },
+        { key: 'title', label: 'Title' },
+        { key: 'Date', label: 'Date' },
+        { key: 'status', label: 'Status' },
         { key: 'actions', label: 'Actions' } // Added actions column
     ];
 
@@ -128,7 +122,7 @@ export default function InventoryTable() {
                 <div className="container-fluid">
                     <div className="card card-primary card-outline">
                         <div className="card-header">
-                            <h5 className="m-0">Inventory List</h5>
+                            <h5 className="m-0">Blog List</h5>
                             <div className="card-tools">
                                 <form onSubmit={handleSearch} className="input-group input-group-sm">
                                     <input
@@ -180,23 +174,28 @@ export default function InventoryTable() {
                                                 {data.map((item) => (
                                                     <tr key={item.id}>
                                                         <td>{item.id}</td>
-                                                        <td>{item.deal_id}</td>
-                                                        <td>{item.stock}</td>
-                                                        <td>{item.year}</td>
-                                                        <td>{item.make}</td>
-                                                        <td>{item.model}</td>
-                                                        <td>{item.vin}</td>
-                                                        <td>{item.active_till ? format(new Date(item.active_till), 'MM/dd/yyyy') : '-'}</td>
-                                                        <td>{item.featured_till ? format(new Date(item.featured_till), 'MM/dd/yyyy') : '-'}</td>
-                                                        <td>{item.payment_date ? format(new Date(item.payment_date), 'MM/dd/yyyy') : '-'}</td>
-                                                        <td>{item.package}</td>
-                                                        <td>{item.image_count}</td>
+                                                        <td>
+                                                            <img
+                                                                src={`https://bestdreamcar.com/frontend/assets/images/blog/${item.img}`}
+                                                                alt={item.title || 'Blog image'}
+                                                                style={{ width: '100px', height: 'auto' }}
+                                                            />
+                                                        </td>
+                                                        {/* <td>{item.owner_name}</td> */}
+                                                        {/* <td>{item.category_id}</td>
+                                                        <td>{item.sub_category_id}</td> */}
+                                                        <td>{item.title}</td>
+                                                        <td>{item.created_at ? format(new Date(item.created_at), 'MM/dd/yyyy') : '-'}</td>
                                                         <td className={
-                                                            item.inventory_status === 'active' ? 'text-success' :
-                                                            item.inventory_status === 'sold' ? 'text-danger' :
+                                                            item.status === 1 ? 'text-success' :
+                                                            item.status === 0 ? 'text-danger' :
                                                             'text-secondary'
                                                         }>
-                                                            {item.inventory_status}
+                                                        {
+                                                            item.status === 1 ? 'Active' :
+                                                            item.status === 0 ? 'Inactive' :
+                                                            'text-secondary'
+                                                        }
                                                         </td>
                                                         <td className="text-center">
                                                             <div className="btn-group btn-group-sm">

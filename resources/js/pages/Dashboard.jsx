@@ -1,4 +1,50 @@
+import { useEffect, useState } from "react";
+import { API_BASE_URL } from './Layouts/Configs/Configs';
+
 function Dashboard() {
+    const [dashboardData, setDashboardData] = useState({
+        inventory: 0,
+        dealer: 0,
+        leads: 0,
+        invoice: 0
+    });
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchDashboardData = async () => {
+            try {
+                const token = localStorage.getItem('token'); // Retrieve token
+                const response = await fetch(`${API_BASE_URL}/api/dashboard`, {
+                    headers: {
+                    'Authorization': `Bearer ${token}`, // Attach token
+                    'Content-Type': 'application/json',
+                    },
+                });
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.json();
+                setDashboardData(data);
+                setLoading(false);
+            } catch (error) {
+                setError(error.message);
+                setLoading(false);
+            }
+        };
+
+        fetchDashboardData();
+    }, []);
+
+    // if (loading) {
+    //     return <div className="content-wrapper">Loading...</div>;
+    // }
+
+    // if (error) {
+    //     return <div className="content-wrapper">Error: {error}</div>;
+    // }
+
+
     return (
         <div className="content-wrapper">
             <div className="content-header">
@@ -24,8 +70,8 @@ function Dashboard() {
                         <div className="col-lg-3 col-6">
                             <div className="small-box bg-info">
                                 <div className="inner">
-                                    <h3>150</h3>
-                                    <p>New Orders</p>
+                                    <h3>{dashboardData.inventory.toLocaleString()}</h3>
+                                    <p>Inventories</p>
                                 </div>
                                 <div className="icon">
                                     <i className="ion ion-bag"></i>
@@ -36,8 +82,8 @@ function Dashboard() {
                         <div className="col-lg-3 col-6">
                             <div className="small-box bg-success">
                                 <div className="inner">
-                                    <h3>53<sup style={{ fontSize: "20px" }}>%</sup></h3>
-                                    <p>Bounce Rate</p>
+                                    <h3>{dashboardData.leads.toLocaleString()}</h3>
+                                    <p>Leads</p>
                                 </div>
                                 <div className="icon">
                                     <i className="ion ion-stats-bars"></i>
@@ -48,8 +94,8 @@ function Dashboard() {
                         <div className="col-lg-3 col-6">
                             <div className="small-box bg-warning">
                                 <div className="inner">
-                                    <h3>44</h3>
-                                    <p>User Registrations</p>
+                                    <h3>{dashboardData.dealer.toLocaleString()}</h3>
+                                    <p>Dealer Registrations</p>
                                 </div>
                                 <div className="icon">
                                     <i className="ion ion-person-add"></i>
@@ -60,8 +106,8 @@ function Dashboard() {
                         <div className="col-lg-3 col-6">
                             <div className="small-box bg-danger">
                                 <div className="inner">
-                                    <h3>65</h3>
-                                    <p>Unique Visitors</p>
+                                    <h3>{dashboardData.invoice.toLocaleString()}</h3>
+                                    <p>Invoices</p>
                                 </div>
                                 <div className="icon">
                                     <i className="ion ion-pie-graph"></i>

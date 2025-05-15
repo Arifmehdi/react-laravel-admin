@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { API_BASE_URL } from '../Layouts/Configs/Configs';
 
 function Login() {
     const [email, setEmail] = useState('');
@@ -15,7 +16,7 @@ function Login() {
 
         try {
             // Make login request to your Laravel endpoint
-            const response = await fetch('http://localhost:8000/api/admin/login', {
+            const response = await fetch(`${API_BASE_URL}/api/admin/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

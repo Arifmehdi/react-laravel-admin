@@ -7,6 +7,16 @@ import ProtectedRoute from './ProtectedRoute';
 import Layout from './Layouts/Layout';
 import Blank from './Blank';
 import Inventory from './Inventory';
+import Blog from './Blog';
+import AutoNews from './Layouts/Blogs/AutoNews';
+import Reviews from './Layouts/Blogs/Reviews';
+import ToolsAndAdvice from './Layouts/Blogs/ToolsAndAdvice';
+import CarBuyingAdvice from './Layouts/Blogs/CarBuyingAdvice,';
+import CarTips from './Layouts/Blogs/CarTips';
+import News from './Layouts/Blogs/News';
+import Opinion from './Layouts/Blogs/Opinion';
+import Financial from './Layouts/Blogs/Financial';
+import Innovation from './Layouts/Blogs/Innovation';
 
 function Router() {
     return (
@@ -27,6 +37,17 @@ function Router() {
                         <Route path="/dashboard" element={<Dashboard />} />
                         <Route path="/blank" element={<Blank/>} />
                         <Route path="/inventory" element={<Inventory/>} />
+                        <Route path="/blogs" element={<Blog/>} />
+                        <Route path="/blogs/auto-news" element={<AutoNews/>} />
+                        <Route path="/blogs/reviews" element={<Reviews/>} />
+                        <Route path="/blogs/tools-and-advice" element={<ToolsAndAdvice/>} />
+                        <Route path="/blogs/car-buying-advice" element={<CarBuyingAdvice/>} />
+                        <Route path="/blogs/car-tips" element={<CarTips/>} />
+                        <Route path="/blogs/news" element={<News/>} />
+                        <Route path="/blogs/Innovation" element={<Innovation/>} />
+                        <Route path="/blogs/opinion" element={<Opinion/>} />
+                        <Route path="/blogs/financial" element={<Financial/>} />
+
                         {/* Add more protected routes here as needed */}
                     </Route>
                 </Route>

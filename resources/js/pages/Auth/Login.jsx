@@ -22,6 +22,7 @@ function Login() {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
                 },
+                credentials: 'include', // Required for cookies/Sanctum
                 body: JSON.stringify({
                     email: email.trim(),
                     password: password.trim(),
